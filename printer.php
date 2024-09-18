@@ -3,7 +3,7 @@ class Print_tool {
 
     public $speed;
     public $amount_pages;
-    public $time;
+    public $time;  
 
     function __construct($speed, $amount_pages) {
         $this->speed = $speed;
@@ -14,8 +14,11 @@ class Print_tool {
         $this->time = $this->amount_pages / $speed;  
     }
 
-    function inform()
-    {
+    function inform() {
+        echo "Час, необхідний для сканування заданої кількості сторінок: $this->time секунд.<br>";  
+    }
+
+    function __destruct() {
         echo "<br>Пристрій введення завершив роботу.<br>";
     }
 }  
@@ -24,7 +27,7 @@ class Scanner extends Print_tool {
 
     public $speed;
 
-    function __construct($time, $amount_pages, $speed = 4) {
+    function __construct($time, $amount_pages, $speed = 3) {
         parent::__construct($time, $amount_pages);  
         $this->speed = $speed; 
     }
@@ -42,7 +45,8 @@ class Scanner extends Print_tool {
 }  
 
 
-$b = new Scanner(3, 12); 
-$b->printing_time(2); 
 
+$b = new Scanner(null, 66); 
+$b->printing_time();  
+$b->inform();
 ?>
