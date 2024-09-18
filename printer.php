@@ -21,8 +21,8 @@ class Print_tool {
 
 class Scanner extends Print_tool {     
 
-    public $speed;
-    public $color_scan;
+    protected $speed;
+    protected $color_scan;
 
     function __construct($amount_pages, $speed = 3, $color_scan = false) {
         parent::__construct($speed, $amount_pages);  
@@ -53,7 +53,11 @@ class Scanner extends Print_tool {
     }
 }  
 
-$b = new Scanner(66, 3, false);  
-$b->printing_time();  
-$b->inform();
+$b1 = new Scanner(66, 3, false);  
+$b1->printing_time();  
+$b1->inform();
+
+$b2 = new Scanner (150,2, true);
+$b2->printing_time();  
+$b2->inform();
 ?>
