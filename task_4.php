@@ -13,7 +13,7 @@ public static function get()
 
 { 
 
-  self::test(); 
+  static::test(); 
 
 } 
 
