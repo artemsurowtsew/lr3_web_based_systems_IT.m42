@@ -1,75 +1,79 @@
 <?php
 header("Content-Type: text/html; charset=utf-8");
 
-class Country {
+abstract class Country {
     public $area;
     public $population;
     public $language;
 
-
-public function __construct($area, $population, $language) {
+    public function __construct($area, $population, $language) {
         $this->area = $area;
         $this->population = $population;
         $this->language = $language;
     }
 
-public function set($field, $value) {
-    if (property_exists($this, $field)) {
-        $this->$field = $value;
-    } else {
-        echo "Field $field does not exist.";
+    public function show() {
+        echo "<p>Area: " . $this->area . "</p>";
+        echo "<p>Population: " . $this->population . "</p>";
+        echo "<p>Language: " . $this->language . "</p>";
+    }
+
+    public function search($field, $value) {
+        if (property_exists($this, $field)) {
+            if ($this->$field == $value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    abstract public function Analyze();
+
+    public function __destruct() {
+        echo "Objects are deleted!";
     }
 }
 
-// Метод для отримання значення поля
-public function get($field) {
-    if (property_exists($this, $field)) {
-        return $this->$field;
-    } else {
-        return "Field $field does not exist.";
+abstract class Area_classification extends Country {
+    protected $mark;
+
+    public function __construct($area, $population, $language, $mark) {
+        parent::__construct($area, $population, $language);
+        $this->mark = $mark;
     }
-}
 
-// Метод для виведення значень полів на екран
-public function show() {
-    echo "<p>Area: " . $this->area . "</p>";
-    echo "<p>Population: " . $this->population . "</p>";
-    echo "<p>Language: " . $this->language . "</p>";
-}
-
-// Метод для пошуку за одним із полів
-public function search($field, $value) {
-    if (property_exists($this, $field)) {
-        if ($this->$field == $value) {
-            return true;
+    public function Analyze() {
+        if ($this->area > 10000) {
+            echo "<p>Це середня Країна</p>";
+            $this->mark++;
+        } elseif ($this->area < 10000) {
+            echo "<p>Це маленька Країна</p>";
+            $this->mark--;
+        } else {  
+            echo "<p>Це велика Країна</p>";
+            $this->mark += 2;
         }
     }
-    return false;
 }
 
-// Деструктор для видалення об'єкта
-public function __destruct() {
-    echo "Objects are deleted!";
+// Создаем конкретный класс, наследующий Area_classification
+class SpecificCountry extends Area_classification {
+    // Можно добавить дополнительные методы или свойства, если нужно
 }
-}
 
-// Створення об'єкта класу Country
-$object = new Country("45 339 км²", "1,349 мільйона", "Естонська");
+$object1 = new SpecificCountry(45339, "1,349 мільйона", "Естонська", 1);
+$object2 = new SpecificCountry(208, "36 469 тисяч", "Французька", 1);
+$object1->show();
 
-// Виклик методу для виведення даних
-$object->show();
+$object1->Analyze();
 
-// Зміна значення поля
-$object->set('population', '1,5 мільйона');
 
-// Отримання значення поля
-echo "<p>Updated Population: " . $object->get('population') . "</p>";
+unset($object1);
 
-// Пошук значення в полі
-$found = $object->search('language', 'Естонська');
-echo $found ? "<p>Language found.</p>" : "<p>Language not found.</p>";
+$object2->show();
 
-// Видалення об'єкта
-unset($object);
+$object2->Analyze();
 
+
+unset($object2);
 ?>
