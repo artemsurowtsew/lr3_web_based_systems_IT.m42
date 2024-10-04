@@ -56,9 +56,9 @@ abstract class Area_classification extends Country {
     }
 }
 
-// Создаем конкретный класс, наследующий Area_classification
+
 class SpecificCountry extends Area_classification {
-    // Можно добавить дополнительные методы или свойства, если нужно
+
 }
 
 $object1 = new SpecificCountry(45339, "1,349 мільйона", "Естонська", 1);

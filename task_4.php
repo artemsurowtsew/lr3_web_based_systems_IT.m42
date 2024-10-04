@@ -58,12 +58,14 @@ class DBLoger implements ILoger
         fwrite($this->file,$message);
 }
 
+
+
 }
 
 $FLog= new FileLoger('./log.txt','w'); 
 
-$FLog ->log('log message'); 
+$FLog ->log('Лабораторна робота3'); 
 
-$FLog ->log('another log message'); 
+$FLog ->log('Час відправлення повідомлення'); 
 
 ?> 
